@@ -15,6 +15,24 @@
   --serif: "EB Garamond", Georgia, "Times New Roman", serif;
   --display: "Cormorant Garamond", Georgia, serif;
   --hand: "Caveat", "Segoe Print", cursive;
+  --on-desk: #5a4d43;
+  --on-desk-faint: #8a7a6b;
+  --glow: rgba(255,255,255,.45);
+  --shade: rgba(120,90,60,.12);
+  --grain: .07;
+  color-scheme: light dark;
+}
+
+/* modo escuro: a mesa escurece, o papel continua papel */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --desk: #241c17;
+    --desk-deep: #1a1411;
+    --on-desk: #cdb79a;
+    --on-desk-faint: #9c876f;
+    --glow: rgba(255,196,120,.10);
+    --shade: rgba(0,0,0,.35);
+  }
 }
 
 * { box-sizing: border-box; }
@@ -27,8 +45,8 @@ body {
   line-height: 1.75;
   background-color: var(--desk);
   background-image:
-    radial-gradient(1200px 600px at 20% 0%, rgba(255,255,255,.45), transparent 60%),
-    radial-gradient(900px 700px at 100% 100%, rgba(120,90,60,.12), transparent 60%),
+    radial-gradient(1200px 600px at 20% 0%, var(--glow), transparent 60%),
+    radial-gradient(900px 700px at 100% 100%, var(--shade), transparent 60%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -52,10 +70,10 @@ body.locked { overflow: hidden; }
 }
 .cover-kicker {
   margin: 0; font-family: var(--display); font-style: italic;
-  font-size: 1.15rem; color: var(--ink-soft); letter-spacing: .04em;
+  font-size: 1.15rem; color: var(--on-desk); letter-spacing: .04em;
 }
 .cover-hint {
-  margin: 0; font-family: var(--hand); font-size: 1.4rem; color: var(--ink-faint);
+  margin: 0; font-family: var(--hand); font-size: 1.4rem; color: var(--on-desk-faint);
   animation: breathe 2.6s ease-in-out infinite;
 }
 @keyframes breathe { 50% { opacity: .45; } }
@@ -357,7 +375,7 @@ h2 {
 
 .colophon {
   text-align: center; margin: 3.5rem 0 0; font-family: var(--display); font-style: italic;
-  color: var(--ink-faint); font-size: .95rem; letter-spacing: .08em;
+  color: var(--on-desk-faint); font-size: .95rem; letter-spacing: .08em;
 }
 
 /* reveal */
@@ -435,4 +453,11 @@ h2 {
   .stamp { width: 36px; height: 44px; outline-width: 3px; }
   .stamp-num { font-size: 1rem; }
   .stamp-txt { font-size: .6rem; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .envelope { filter: drop-shadow(0 26px 34px rgba(0,0,0,.55)); }
+  .letter { box-shadow: 0 1px 1px rgba(0,0,0,.2), 0 14px 26px -6px rgba(0,0,0,.45), 0 50px 70px -20px rgba(0,0,0,.6), inset 0 0 90px rgba(176,138,78,.10); }
+  .letter::before, .letter::after { box-shadow: 0 8px 18px -8px rgba(0,0,0,.5); }
+  .polaroid { box-shadow: 0 2px 4px rgba(0,0,0,.25), 0 16px 28px -10px rgba(0,0,0,.6); }
 }
